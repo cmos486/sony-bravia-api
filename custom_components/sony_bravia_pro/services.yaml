@@ -1,91 +1,129 @@
+open_app:
+  name: Open Application
+  description: >-
+    Open an application on the Sony Bravia Pro TV by name or URI.
+    If a name is provided, it is matched against the installed app list.
+    If a URI is provided, it is used directly.
+  fields:
+    entity_id:
+      name: Entity
+      description: "Media player entity of the TV."
+      required: true
+      example: "media_player.bravia_api"
+      selector:
+        entity:
+          integration: sony_bravia_pro
+          domain: media_player
+    app_name:
+      name: Application Name
+      description: >-
+        Name of the application (e.g., "Netflix", "YouTube").
+        Matched case-insensitively against installed apps.
+        Use this OR app_uri, not both.
+      required: false
+      example: "Netflix"
+      selector:
+        text:
+    app_uri:
+      name: Application URI
+      description: >-
+        Full application URI. Takes precedence over app_name if both provided.
+        Check the "installed_apps" attribute on the media player entity for URIs.
+      required: false
+      example: "com.sony.dtv.com.netflix.ninja.com.netflix.ninja.MainActivity"
+      selector:
+        text:
+
 send_ircc:
   name: Send IRCC Command
-  description: Send an IRCC remote control code to a Sony Bravia Pro TV.
-  target:
-    entity:
-      integration: sony_bravia_pro
-      domain: remote
+  description: >-
+    Send an IRCC remote control command by name or raw base64 code.
+    See COMMANDS.md for the full list of available commands.
   fields:
+    entity_id:
+      name: Entity
+      description: "Remote entity of the TV."
+      required: true
+      example: "remote.bravia_api_remote"
+      selector:
+        entity:
+          integration: sony_bravia_pro
+          domain: remote
     command:
       name: Command
       description: >-
-        IRCC command name (e.g., "VolumeUp", "Home", "Return") or raw base64
-        IRCC code. Use the remote entity's "available_commands" attribute to see
-        supported command names.
+        IRCC command name (e.g., "VolumeUp", "Home", "Netflix") or raw base64
+        IRCC code. Check the remote entity's "available_commands" attribute.
       required: true
       example: "VolumeUp"
       selector:
         text:
 
-send_text:
-  name: Send Text
-  description: Send text input to the on-screen keyboard.
-  target:
-    entity:
-      integration: sony_bravia_pro
-      domain: remote
+set_audio_output:
+  name: Set Audio Output
+  description: >-
+    Change the audio output of the Sony Bravia Pro TV.
   fields:
-    text:
-      name: Text
-      description: Text to send to the on-screen keyboard.
+    entity_id:
+      name: Entity
+      description: "Media player entity of the TV."
       required: true
-      example: "Hello World"
+      example: "media_player.bravia_api"
       selector:
-        text:
+        entity:
+          integration: sony_bravia_pro
+          domain: media_player
+    output:
+      name: Output
+      description: "Audio output target."
+      required: true
+      example: "speaker"
+      selector:
+        select:
+          options:
+            - "speaker"
+            - "hdmi"
+            - "speaker_hdmi"
+            - "audioSystem"
 
-set_picture_quality:
-  name: Set Picture Quality
-  description: Adjust picture quality settings on a Sony Bravia Pro TV.
-  target:
-    entity:
-      integration: sony_bravia_pro
-      domain: media_player
+blank_screen:
+  name: Blank Screen
+  description: >-
+    Turn the screen off (picture off) or back on.
+    Uses the power saving mode "pictureOff" to blank the display
+    while keeping audio and the system running.
   fields:
-    target:
-      name: Setting
-      description: "Picture quality setting to adjust (e.g., brightness, contrast)."
+    entity_id:
+      name: Entity
+      description: "Media player entity of the TV."
       required: true
-      example: "brightness"
+      example: "media_player.bravia_api"
       selector:
-        text:
-    value:
-      name: Value
-      description: "Value to set."
+        entity:
+          integration: sony_bravia_pro
+          domain: media_player
+    enable:
+      name: Enable
+      description: "True to blank the screen, False to restore it."
       required: true
-      example: "50"
+      default: true
+      example: true
       selector:
-        text:
+        boolean:
 
-set_scene:
-  name: Set Scene Mode
-  description: Set the scene/picture mode on a Sony Bravia Pro TV.
-  target:
-    entity:
-      integration: sony_bravia_pro
-      domain: media_player
+get_installed_apps:
+  name: Get Installed Apps
+  description: >-
+    Force a refresh of the installed application list.
+    After calling this service, the updated list is available in the
+    "installed_apps" attribute of the media player entity.
   fields:
-    scene:
-      name: Scene
-      description: "Scene mode name (device-specific)."
+    entity_id:
+      name: Entity
+      description: "Media player entity of the TV."
       required: true
-      example: "auto"
+      example: "media_player.bravia_api"
       selector:
-        text:
-
-launch_app:
-  name: Launch Application
-  description: Launch an application on a Sony Bravia Pro TV.
-  target:
-    entity:
-      integration: sony_bravia_pro
-      domain: media_player
-  fields:
-    app_uri:
-      name: Application URI
-      description: >-
-        Application URI from the application list. Use the media browser to
-        discover available apps.
-      required: true
-      example: "com.sony.dtv.com.netflix.ninja.com.netflix.ninja.MainActivity"
-      selector:
-        text:
+        entity:
+          integration: sony_bravia_pro
+          domain: media_player

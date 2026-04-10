@@ -12,7 +12,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .bravia_client import BraviaError
-from .const import DOMAIN
+from .const import DOMAIN, IRCC_CODES
 from .coordinator import BraviaCoordinator
 from .entity import BraviaEntity
 
@@ -53,8 +53,11 @@ class BraviaRemote(BraviaEntity, RemoteEntity):
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
         """Return available IRCC commands as an attribute."""
+        # Merge TV-discovered codes with predefined fallbacks
+        all_commands = set(IRCC_CODES.keys()) | set(self.coordinator.ircc_codes.keys())
         return {
-            "available_commands": sorted(self.coordinator.ircc_codes.keys())
+            "available_commands": sorted(all_commands),
+            "tv_discovered_commands": sorted(self.coordinator.ircc_codes.keys()),
         }
 
     async def async_turn_on(self, **kwargs: Any) -> None:
@@ -93,8 +96,18 @@ class BraviaRemote(BraviaEntity, RemoteEntity):
                         # Looks like a raw IRCC code
                         await self.coordinator.client.send_ircc(cmd)
                     else:
-                        # Look up by name
-                        await self.coordinator.send_ircc_by_name(cmd)
+                        # Look up by name: TV-discovered first, then predefined fallback
+                        code = (
+                            self.coordinator.ircc_codes.get(cmd)
+                            or IRCC_CODES.get(cmd)
+                        )
+                        if code is None:
+                            _LOGGER.error(
+                                "Unknown IRCC command '%s'. Check available_commands attribute.",
+                                cmd,
+                            )
+                            continue
+                        await self.coordinator.client.send_ircc(code)
                 except BraviaError as err:
                     _LOGGER.error("Failed to send IRCC command '%s': %s", cmd, err)
 

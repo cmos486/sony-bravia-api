@@ -142,6 +142,19 @@ class BraviaMediaPlayer(BraviaEntity, MediaPlayerEntity):
             return data.playing_content.get("title")
         return None
 
+    @property
+    def extra_state_attributes(self) -> dict[str, Any]:
+        """Return extra state attributes including installed apps."""
+        attrs: dict[str, Any] = {}
+        data = self.coordinator.data
+        if data and data.app_list:
+            attrs["installed_apps"] = {
+                app.get("title", "Unknown"): app.get("uri", "")
+                for app in data.app_list
+                if app.get("title") and app.get("uri")
+            }
+        return attrs
+
     async def async_turn_on(self) -> None:
         """Turn the TV on."""
         if self._mac:

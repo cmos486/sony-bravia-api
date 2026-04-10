@@ -78,3 +78,115 @@ SCREEN_ROTATION_OPTIONS: Final = {
 
 # WoL
 WOL_PORT: Final = 9
+
+# Predefined IRCC command codes
+# These are common across most Sony Bravia models.
+# The actual available codes are discovered at runtime via getRemoteControllerInfo,
+# but these serve as a fallback and reference.
+IRCC_CODES: Final[dict[str, str]] = {
+    # Power
+    "PowerOff": "AAAAAQAAAAEAAAAvAw==",
+    "Sleep": "AAAAAQAAAAEAAAAvAw==",
+    # Input
+    "Input": "AAAAAQAAAAEAAAAlAw==",
+    "ChangeMediaAudio": "AAAAAQAAAAEAAAAXAw==",
+    "HDMI1": "AAAAAgAAABoAAABaAw==",
+    "HDMI2": "AAAAAgAAABoAAABbAw==",
+    "HDMI3": "AAAAAgAAABoAAABcAw==",
+    "HDMI4": "AAAAAgAAABoAAABdAw==",
+    # Numbers
+    "Num0": "AAAAAQAAAAEAAAAJAw==",
+    "Num1": "AAAAAQAAAAEAAAAAAw==",
+    "Num2": "AAAAAQAAAAEAAAABAw==",
+    "Num3": "AAAAAQAAAAEAAAACAw==",
+    "Num4": "AAAAAQAAAAEAAAADAw==",
+    "Num5": "AAAAAQAAAAEAAAAEAw==",
+    "Num6": "AAAAAQAAAAEAAAAFAw==",
+    "Num7": "AAAAAQAAAAEAAAAGAw==",
+    "Num8": "AAAAAQAAAAEAAAAHAw==",
+    "Num9": "AAAAAQAAAAEAAAAIAw==",
+    "DOT": "AAAAAgAAAJcAAAAdAw==",
+    # Volume & Channel
+    "VolumeUp": "AAAAAQAAAAEAAAASAw==",
+    "VolumeDown": "AAAAAQAAAAEAAAATAw==",
+    "Mute": "AAAAAQAAAAEAAAAUAw==",
+    "ChannelUp": "AAAAAQAAAAEAAAAQAw==",
+    "ChannelDown": "AAAAAQAAAAEAAAARAw==",
+    # Navigation
+    "Up": "AAAAAQAAAAEAAAB0Aw==",
+    "Down": "AAAAAQAAAAEAAAB1Aw==",
+    "Left": "AAAAAQAAAAEAAAB2Aw==",
+    "Right": "AAAAAQAAAAEAAAB3Aw==",
+    "Confirm": "AAAAAQAAAAEAAABlAw==",
+    "Home": "AAAAAQAAAAEAAABgAw==",
+    "Return": "AAAAAgAAAJcAAAAjAw==",
+    "Exit": "AAAAAQAAAAEAAABjAw==",
+    "Options": "AAAAAgAAAJcAAAA2Aw==",
+    "Menu": "AAAAAgAAAJcAAAA2Aw==",
+    # Playback
+    "Play": "AAAAAgAAAJcAAAAaAw==",
+    "Pause": "AAAAAgAAAJcAAAAZAw==",
+    "Stop": "AAAAAgAAAJcAAAAYAw==",
+    "Next": "AAAAAgAAAJcAAAA8Aw==",
+    "Prev": "AAAAAgAAAJcAAAA7Aw==",
+    "Forward": "AAAAAgAAAJcAAAAcAw==",
+    "Rewind": "AAAAAgAAAJcAAAAbAw==",
+    "Replay": "AAAAAgAAAJcAAAB2Aw==",
+    "Advance": "AAAAAgAAAJcAAAB3Aw==",
+    # Color buttons
+    "Red": "AAAAAgAAAJcAAAAlAw==",
+    "Green": "AAAAAgAAAJcAAAAmAw==",
+    "Yellow": "AAAAAgAAAJcAAAAnAw==",
+    "Blue": "AAAAAgAAAJcAAAAkAw==",
+    # Display & Info
+    "Display": "AAAAAQAAAAEAAAA+Aw==",
+    "EPG": "AAAAAgAAAKQAAABbAw==",
+    "Guide": "AAAAAgAAAKQAAABbAw==",
+    "Info": "AAAAAQAAAAEAAAA6Aw==",
+    "ClosedCaption": "AAAAAgAAAKQAAAAQAw==",
+    "Subtitle": "AAAAAgAAAJcAAAAoAw==",
+    "SubTitle": "AAAAAgAAAJcAAAAoAw==",
+    "Teletext": "AAAAAQAAAAEAAAA/Aw==",
+    # Audio
+    "Audio": "AAAAAQAAAAEAAAAXAw==",
+    "SpeakerVolume": "AAAAAQAAAAEAAAASAw==",
+    # Apps & Services
+    "Netflix": "AAAAAgAAABoAAAB8Aw==",
+    "ActionMenu": "AAAAAgAAAMQAAABLAw==",
+    "ApplicationLauncher": "AAAAAgAAAMQAAAAqAw==",
+    "Help": "AAAAAgAAAMQAAABNAw==",
+    "SEN": "AAAAAgAAABoAAAB9Aw==",
+    "InternetWidgets": "AAAAAgAAABoAAAB6Aw==",
+    "InternetVideo": "AAAAAgAAABoAAAB5Aw==",
+    # TV functions
+    "TV": "AAAAAQAAAAEAAAAkAw==",
+    "Digital": "AAAAAgAAAJcAAAAyAw==",
+    "Analog": "AAAAAgAAAHcAAAANAw==",
+    "BS": "AAAAAgAAAJcAAAAsAw==",
+    "CS": "AAAAAgAAAJcAAAArAw==",
+    "BSCS": "AAAAAgAAAJcAAAAQAw==",
+    "Ddata": "AAAAAgAAAJcAAAAVAw==",
+    "PicOff": "AAAAAQAAAAEAAAA+Aw==",
+    "DemoMode": "AAAAAgAAAJcAAABLAw==",
+    "Wide": "AAAAAgAAAKQAAAA9Aw==",
+    "Jump": "AAAAAQAAAAEAAAA7Aw==",
+    "PAP": "AAAAAgAAAKQAAAB3Aw==",
+    "TopMenu": "AAAAAgAAABoAAABgAw==",
+    "PopUpMenu": "AAAAAgAAABoAAABhAw==",
+    "Rec": "AAAAAgAAAJcAAAAgAw==",
+    "RecList": "AAAAAgAAAJcAAAAlAw==",
+    # Picture
+    "PictureMode": "AAAAAgAAAJcAAABiAw==",
+    "PictureMute": "AAAAAQAAAAEAAAA+Aw==",
+    # Misc
+    "GGuide": "AAAAAQAAAAEAAAAOAw==",
+    "CC": "AAAAAgAAAKQAAAAQAw==",
+    "Favorite": "AAAAAgAAAHcAAABqAw==",
+    "iManual": "AAAAAgAAABoAAAB7Aw==",
+    "MIX": "AAAAAgAAAJcAAAArAw==",
+    "FlashPlus": "AAAAAgAAAJcAAAB4Aw==",
+    "FlashMinus": "AAAAAgAAAJcAAAB5Aw==",
+    "TVPause": "AAAAAgAAAJcAAAAZAw==",
+    "FootballMode": "AAAAAgAAABoAAAB2Aw==",
+    "Social": "AAAAAgAAABoAAAB0Aw==",
+}
