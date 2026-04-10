@@ -1,5 +1,6 @@
 {
     "name": "Bravia REST API",
     "content_type": "integration",
-    "iot_class": "local_polling"
+    "iot_class": "local_polling",
+    "render_readme": true
 }
