@@ -1,137 +1,161 @@
-# Bravia REST API
+# 📺 Bravia REST API
 
-[![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
-[![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.1%2B-blue.svg)](https://www.home-assistant.io/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
+[![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.1%2B-blue.svg?style=for-the-badge)](https://www.home-assistant.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+[![GitHub Release](https://img.shields.io/github/v/release/cmos486/Bravia-REST-API?style=for-the-badge)](https://github.com/cmos486/Bravia-REST-API/releases)
 
-A full-featured Home Assistant custom integration for **Sony Bravia** professional displays, built on top of the [Sony Bravia Pro REST API](https://pro-bravia.sony.net/remote-display-control/rest-api/reference/).
-
-This integration is significantly more capable than the built-in `braviatv` integration, exposing all available API functionality as native Home Assistant entities.
-
----
-
-## Features
-
-- **Media Player** — Power on/off, volume control (set, step, mute), input source selection, app launching, and media browser for apps and inputs
-- **Remote Control** — Send any IRCC remote command by name or raw code (volume, navigation, playback, numbers, etc.)
-- **Buttons** — Reboot, terminate apps, picture off (blank screen), picture on, plus 15 IRCC remote buttons (Home, Back, D-pad, OK, Volume, Channels, Netflix, etc.)
-- **Select Entities** — Sound output mode (speaker, HDMI, audio system), screen rotation (0°, 90°, 180°, 270°)
-- **Sensors** — Model name, firmware version, serial number, MAC address (diagnostic)
-- **Switches** — LED indicator on/off, Wake-on-LAN enable/disable
-- **Custom Services** — Open app by name, send IRCC codes, set audio output, blank screen, refresh app list
-- **Wake-on-LAN** — Automatically sends WoL magic packets to power on the TV from standby
-- **Runtime Discovery** — Detects available features and IRCC codes per TV model at setup time
-- **Media Browser** — Browse and launch installed Android apps and switch between inputs visually
+> A full-featured Home Assistant custom integration for **Sony Bravia** displays, built on top of the [Sony Bravia Pro REST API](https://pro-bravia.sony.net/remote-display-control/rest-api/reference/).
+>
+> Significantly more capable than the built-in `braviatv` integration — exposes **all** available API functionality as native Home Assistant entities.
 
 ---
 
-## Prerequisites
+## ✨ Features
 
-1. A **Sony Bravia** display on the same local network as your Home Assistant instance
-2. **Pre-Shared Key (PSK)** authentication enabled on the TV:
-   - Go to **Settings > Network & Internet > Local network setup > IP control > Authentication**
-   - Set a PSK (any string, e.g., `1234`)
-3. **Remote control** enabled on the TV:
-   - Go to **Settings > Network & Internet > Remote device settings > Control remotely** → Enable
-4. **Home Assistant 2024.1** or newer
+| Feature | Description |
+|---------|-------------|
+| 🎬 **Media Player** | Power, volume (absolute slider + step), mute, input source selection, app launching, media browser |
+| 🎮 **Remote Control** | Send any IRCC command by name or raw base64 code |
+| 🔘 **19 Buttons** | System (reboot, blank screen) + 15 IRCC remote buttons (Home, Back, D-pad, OK, Volume, Channels, Netflix, Play/Pause/Stop) |
+| 🎚️ **Selects** | Sound output, screen rotation, picture mode, sleep timer |
+| 📊 **Sensors** | Model, firmware, serial number, MAC address |
+| 🔀 **Switches** | LED indicator, Wake-on-LAN toggle |
+| 📡 **SSDP Discovery** | TV auto-detected on your network — no manual IP needed |
+| 🌐 **Wake-on-LAN** | Power on from standby via magic packet |
+| 🔍 **Runtime Discovery** | Detects available features and IRCC codes per TV model |
+| 📱 **Media Browser** | Browse and launch installed Android apps visually |
 
 ---
 
-## Installation
+## 📋 Prerequisites
+
+Before installing, make sure your TV is configured:
+
+| Step | Setting |
+|------|---------|
+| 1️⃣ | TV on the **same local network** as Home Assistant |
+| 2️⃣ | **PSK enabled**: Settings > Network & Internet > Local network setup > IP control > Authentication |
+| 3️⃣ | **Remote control enabled**: Settings > Network & Internet > Remote device settings > Control remotely |
+| 4️⃣ | **Home Assistant 2024.1** or newer |
+
+---
+
+## 🚀 Installation
 
 ### HACS (Recommended)
 
-1. Open HACS in your Home Assistant instance
-2. Click the three dots menu (top right) → **Custom repositories**
-3. Add the repository URL: `https://github.com/cmos486/Bravia-REST-API`
-4. Select category: **Integration**
-5. Click **Add**
-6. Search for **Bravia REST API** in HACS and click **Install**
-7. Restart Home Assistant
+1. Open **HACS** in your Home Assistant
+2. Click **⋮** (top right) → **Custom repositories**
+3. Add: `https://github.com/cmos486/Bravia-REST-API`
+4. Category: **Integration**
+5. Click **Add** → Search for **Bravia REST API** → **Install**
+6. **Restart** Home Assistant
 
 ### Manual Installation
 
-1. Download the latest release from the [Releases](https://github.com/cmos486/Bravia-REST-API/releases) page
-2. Copy the `custom_components/bravia_rest_api/` folder to your Home Assistant `config/custom_components/` directory
+1. Download the [latest release](https://github.com/cmos486/Bravia-REST-API/releases)
+2. Copy `custom_components/bravia_rest_api/` to your HA `config/custom_components/`
 3. Restart Home Assistant
 
 ---
 
-## Configuration
+## ⚙️ Configuration
 
 1. Go to **Settings > Devices & Services > Add Integration**
-2. Search for **Bravia REST API**
-3. Enter the TV's **IP address** and the **Pre-Shared Key** you configured
-4. The integration will validate the connection and auto-discover the TV model
+2. Search for **Bravia REST API** (or it may appear automatically via SSDP discovery!)
+3. Enter the TV's **IP address** and **Pre-Shared Key**
+4. The integration auto-discovers the TV model and creates all entities
 5. Click **Submit**
 
----
-
-## Entities Created
-
-After setup, the integration creates the following entities for your TV:
-
-### Media Player
-| Entity | Description |
-|--------|-------------|
-| `media_player.<tv_model>` | Main TV entity — power, volume, source selection, app launching |
-
-**Source list** combines HDMI inputs and installed Android apps into one unified list.
-
-### Remote
-| Entity | Description |
-|--------|-------------|
-| `remote.<tv_name>_remote` | Send IRCC remote commands to the TV (always-on) |
-
-### Buttons — System
-| Entity | Description |
-|--------|-------------|
-| `button.<tv_name>_reboot` | Reboot the TV |
-| `button.<tv_name>_terminate_apps` | Close all foreground apps |
-| `button.<tv_name>_picture_off` | Turn off the screen (blank) |
-| `button.<tv_name>_picture_on` | Turn the screen back on |
-
-### Buttons — Remote IRCC
-| Entity | Description |
-|--------|-------------|
-| `button.<tv_name>_ircc_home` | Remote: Home |
-| `button.<tv_name>_ircc_back` | Remote: Back |
-| `button.<tv_name>_ircc_up/down/left/right` | Remote: D-pad navigation |
-| `button.<tv_name>_ircc_confirm` | Remote: OK |
-| `button.<tv_name>_ircc_options` | Remote: Options |
-| `button.<tv_name>_ircc_volume_up/down` | Remote: Volume Up/Down |
-| `button.<tv_name>_ircc_mute` | Remote: Mute |
-| `button.<tv_name>_ircc_channel_up/down` | Remote: Channel Up/Down |
-| `button.<tv_name>_ircc_netflix` | Remote: Netflix |
-| `button.<tv_name>_ircc_play/pause/stop` | Remote: Playback controls |
-| `button.<tv_name>_ircc_input` | Remote: Input selector |
-
-### Selects
-| Entity | Description |
-|--------|-------------|
-| `select.<tv_name>_sound_output` | Sound output mode: Speaker, HDMI, Speaker + HDMI, Audio System |
-| `select.<tv_name>_screen_rotation` | Screen rotation: 0°, 90°, 180°, 270° |
-
-### Sensors (Diagnostic)
-| Entity | Description |
-|--------|-------------|
-| `sensor.<tv_name>_model` | TV model name |
-| `sensor.<tv_name>_firmware` | Firmware version |
-| `sensor.<tv_name>_serial_number` | Serial number |
-| `sensor.<tv_name>_mac_address` | MAC address |
-
-### Switches
-| Entity | Description |
-|--------|-------------|
-| `switch.<tv_name>_led_indicator` | Toggle the front LED indicator |
-| `switch.<tv_name>_wake_on_lan` | Enable/disable Wake-on-LAN |
+<p align="center">
+  <img src="https://raw.githubusercontent.com/cmos486/Bravia-REST-API/main/images/integration_installed.jpg" alt="Integration installed in Home Assistant" width="600"/>
+</p>
 
 ---
 
-## Services
+## 🎮 Entities Created
+
+The integration creates **30+ entities** for full TV control:
+
+### 🎬 Media Player
+
+| Entity | Description |
+|--------|-------------|
+| `media_player.<tv_model>` | Main TV entity — power, volume slider, source selection, app launching |
+
+> **Source list** combines HDMI inputs + installed Android apps in one unified dropdown.
+
+### 📡 Remote
+
+| Entity | Description |
+|--------|-------------|
+| `remote.<tv_name>_remote` | Send IRCC remote commands (always-on, doesn't control power) |
+
+### 🔘 Buttons — System
+
+| Entity | Icon | Description |
+|--------|------|-------------|
+| `button._reboot` | 🔄 | Reboot the TV |
+| `button._terminate_apps` | ❌ | Close all foreground apps |
+| `button._picture_off` | 🖥️ | Blank the screen (audio continues) |
+| `button._picture_on` | 💡 | Restore the screen |
+
+### 🎮 Buttons — Remote IRCC
+
+| Entity | Command | Icon |
+|--------|---------|------|
+| `button._ircc_home` | Home | 🏠 |
+| `button._ircc_back` | Back / Return | ◀️ |
+| `button._ircc_up` | D-pad Up | ⬆️ |
+| `button._ircc_down` | D-pad Down | ⬇️ |
+| `button._ircc_left` | D-pad Left | ⬅️ |
+| `button._ircc_right` | D-pad Right | ➡️ |
+| `button._ircc_confirm` | OK / Enter | ✅ |
+| `button._ircc_options` | Options / Menu | ⚙️ |
+| `button._ircc_volume_up` | Volume Up | 🔊 |
+| `button._ircc_volume_down` | Volume Down | 🔉 |
+| `button._ircc_mute` | Mute | 🔇 |
+| `button._ircc_channel_up` | Channel Up | 📺⬆️ |
+| `button._ircc_channel_down` | Channel Down | 📺⬇️ |
+| `button._ircc_netflix` | Netflix | 🎬 |
+| `button._ircc_play` | Play | ▶️ |
+| `button._ircc_pause` | Pause | ⏸️ |
+| `button._ircc_stop` | Stop | ⏹️ |
+| `button._ircc_input` | Input selector | 🔌 |
+
+### 🎚️ Selects
+
+| Entity | Options |
+|--------|---------|
+| `select._sound_output` | Speaker, HDMI, Speaker + HDMI, Audio System |
+| `select._screen_rotation` | 0°, 90°, 180°, 270° |
+| `select._picture_mode` | Standard, Vivid, Cinema, Custom, Game, Graphics, Photo, Sports |
+| `select._sleep_timer` | Off, 15 min, 30 min, 45 min, 60 min, 90 min, 120 min |
+
+### 📊 Sensors (Diagnostic)
+
+| Entity | Value |
+|--------|-------|
+| `sensor._model` | e.g. KD-65XH9096 |
+| `sensor._firmware` | Firmware version |
+| `sensor._serial_number` | Serial number |
+| `sensor._mac_address` | MAC address |
+
+### 🔀 Switches
+
+| Entity | Description |
+|--------|-------------|
+| `switch._led_indicator` | Toggle the front LED indicator |
+| `switch._wake_on_lan` | Enable/disable Wake-on-LAN |
+
+---
+
+## 🔧 Services
 
 ### `bravia_rest_api.send_ircc`
-Send an IRCC remote control command.
+
+Send an IRCC remote control command by name or raw base64 code.
 
 ```yaml
 service: bravia_rest_api.send_ircc
@@ -142,6 +166,7 @@ data:
 ```
 
 ### `bravia_rest_api.open_app`
+
 Open an app by name (case-insensitive) or URI.
 
 ```yaml
@@ -153,28 +178,31 @@ data:
 ```
 
 ### `bravia_rest_api.set_audio_output`
-Change audio output.
+
+Change audio output target.
 
 ```yaml
 service: bravia_rest_api.set_audio_output
 target:
   entity_id: media_player.kd_65xh9096
 data:
-  output: speaker
+  output: speaker  # speaker | hdmi | speaker_hdmi | audioSystem
 ```
 
 ### `bravia_rest_api.blank_screen`
-Turn the screen off/on.
+
+Turn the screen off (picture off) or back on.
 
 ```yaml
 service: bravia_rest_api.blank_screen
 target:
   entity_id: media_player.kd_65xh9096
 data:
-  enable: true
+  enable: true  # true = blank, false = restore
 ```
 
 ### `bravia_rest_api.get_installed_apps`
+
 Force refresh the installed apps list.
 
 ```yaml
@@ -183,7 +211,9 @@ target:
   entity_id: media_player.kd_65xh9096
 ```
 
-You can also use the standard `remote.send_command` service:
+### `remote.send_command` (HA built-in)
+
+Send multiple IRCC commands in sequence:
 
 ```yaml
 service: remote.send_command
@@ -200,77 +230,92 @@ data:
 
 ---
 
-## Known IRCC Codes
+## 🎯 Known IRCC Codes
 
-These are common IRCC command names. The actual available commands depend on your TV model and are auto-discovered at setup time. Check the `available_commands` attribute on the remote entity for the full list. See [COMMANDS.md](COMMANDS.md) for the complete reference.
+Common commands auto-discovered at setup. Check the `available_commands` attribute on the remote entity for your TV's full list. See [COMMANDS.md](COMMANDS.md) for the complete reference.
 
-| Command | Description |
-|---------|-------------|
-| `PowerOff` | Power off |
-| `Input` | Input selector |
-| `Num0` - `Num9` | Number keys |
-| `VolumeUp` / `VolumeDown` | Volume |
-| `Mute` | Toggle mute |
-| `ChannelUp` / `ChannelDown` | Channel navigation |
-| `Up` / `Down` / `Left` / `Right` | D-pad navigation |
-| `Confirm` | Enter/OK |
-| `Home` | Home screen |
-| `Return` | Back/return |
-| `Options` | Options menu |
-| `Play` / `Pause` / `Stop` | Playback controls |
-| `Next` / `Prev` | Track skip |
-| `Netflix` | Launch Netflix |
+| Command | Description | Command | Description |
+|---------|-------------|---------|-------------|
+| `PowerOff` | Power off | `Home` | Home screen |
+| `Input` | Input selector | `Return` | Back/return |
+| `Num0`-`Num9` | Number keys | `Confirm` | Enter/OK |
+| `VolumeUp` | Volume up | `Options` | Options menu |
+| `VolumeDown` | Volume down | `Play` | Play |
+| `Mute` | Toggle mute | `Pause` | Pause |
+| `ChannelUp` | Channel up | `Stop` | Stop |
+| `ChannelDown` | Channel down | `Netflix` | Launch Netflix |
+| `Up`/`Down`/`Left`/`Right` | D-pad navigation | `Next`/`Prev` | Track skip |
 
 ---
 
-## Troubleshooting
+## 🔍 Troubleshooting
 
-### TV not responding / cannot connect
-- Ensure the TV is **powered on** (not in standby) for initial setup
-- Verify the IP address is correct and the TV is on the same network
+<details>
+<summary><b>TV not responding / cannot connect</b></summary>
+
+- Verify the **IP address** is correct and TV is on the same network
 - Check that **IP Control** and **Remote control** are enabled in TV settings
+- Make sure the **PSK** matches what's configured on the TV
+</details>
 
-### TV in standby — limited functionality
-- When the TV is in **standby**, most API calls fail (this is a Sony limitation)
+<details>
+<summary><b>TV in standby — limited functionality</b></summary>
+
+- In **standby**, most API calls fail (Sony limitation)
 - The integration handles this gracefully — entities go to "off" / "unavailable"
-- Enable **Wake-on-LAN** on the TV and in the integration to power on from standby
+- Enable **Wake-on-LAN** to power on from standby
+</details>
 
-### TV in suspend — completely unreachable
+<details>
+<summary><b>TV in suspend — completely unreachable</b></summary>
+
 - In **suspend mode**, the TV's HTTP server stops entirely
-- You must use Wake-on-LAN to wake the TV, then the API becomes available again
+- Use Wake-on-LAN to wake the TV, then the API becomes available
+</details>
 
-### Netflix / YouTube not showing as current source
-- `getPlayingContentInfo` returns empty data for native Android apps — this is a **known Sony API limitation**
-- The integration will show the last known input or "Unknown" for streaming apps
+<details>
+<summary><b>Netflix / YouTube not showing as current source</b></summary>
 
-### IRCC commands not working
-- Check the `available_commands` attribute on the remote entity to see which commands your TV supports
-- Not all TVs support all IRCC codes — the integration auto-discovers available codes at setup
+- `getPlayingContentInfo` returns empty data for native Android apps — **known Sony API limitation**
+- The integration shows the last known input or "Unknown" for streaming apps
+</details>
 
-### Sound output / screen rotation not applying
-- Some settings are model-specific. If a setting fails, it may not be supported on your TV model
+<details>
+<summary><b>IRCC commands not working</b></summary>
+
+- Check the `available_commands` attribute on the remote entity
+- Not all TVs support all IRCC codes — auto-discovered at setup
+</details>
+
+<details>
+<summary><b>Some settings not applying</b></summary>
+
+- Sound output, screen rotation, and picture mode are **model-specific**
+- If a setting fails silently, it may not be supported on your TV
+</details>
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
-Contributions are welcome! Please:
+Contributions are welcome!
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/my-feature`)
 3. Commit your changes
-4. Push to the branch and open a Pull Request
+4. Push and open a Pull Request
 
 ---
 
-## License
+## 📄 License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
 
 ---
 
-## References
+## 📚 References
 
 - [Sony Bravia Pro REST API Reference](https://pro-bravia.sony.net/remote-display-control/rest-api/reference/)
 - [Sony Bravia Pro REST API Guide](https://pro-bravia.sony.net/remote-display-control/rest-api/guide/)
-- [Home Assistant Developer Documentation](https://developers.home-assistant.io/)
+- [Home Assistant Developer Docs](https://developers.home-assistant.io/)
+- [IRCC Commands Reference](COMMANDS.md)
