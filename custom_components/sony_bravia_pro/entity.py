@@ -25,7 +25,7 @@ class BraviaEntity(CoordinatorEntity[BraviaCoordinator]):
         info = coordinator.system_info
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, entry.unique_id or entry.entry_id)},
-            name=info.get("name") or info.get("model") or "Sony Bravia Pro",
+            name=info.get("model") or info.get("name") or "Sony Bravia Pro",
             manufacturer="Sony",
             model=info.get("model"),
             sw_version=info.get("generation") or info.get("firmware"),

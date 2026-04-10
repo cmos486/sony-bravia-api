@@ -96,12 +96,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = coordinator
 
-    _LOGGER.warning(
-        "Sony Bravia Pro: forwarding platform setups: %s",
-        [str(p) for p in PLATFORM_LIST],
-    )
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORM_LIST)
-    _LOGGER.warning("Sony Bravia Pro: all platform setups forwarded")
 
     # Register services (only once, on first entry)
     if not hass.services.has_service(DOMAIN, SERVICE_OPEN_APP):
