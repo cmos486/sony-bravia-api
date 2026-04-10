@@ -1,0 +1,72 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "Sony Bravia Pro",
+                "description": "Configura tu pantalla Sony Bravia Pro. La TV debe estar encendida durante la configuraci\u00f3n.",
+                "data": {
+                    "host": "Direcci\u00f3n IP",
+                    "psk": "Clave Pre-Compartida (PSK)"
+                },
+                "data_description": {
+                    "host": "Direcci\u00f3n IP de tu pantalla Sony Bravia Pro",
+                    "psk": "Clave Pre-Compartida configurada en Ajustes > Red e Internet > Control IP de la TV"
+                }
+            }
+        },
+        "error": {
+            "cannot_connect": "No se puede conectar a la TV. Verifica la direcci\u00f3n IP y aseg\u00farate de que la TV est\u00e9 encendida.",
+            "invalid_auth": "Clave Pre-Compartida inv\u00e1lida. Verifica el PSK configurado en tu TV.",
+            "tv_off": "La TV parece estar en espera. Por favor, enci\u00e9ndela antes de configurar."
+        },
+        "abort": {
+            "already_configured": "Esta TV ya est\u00e1 configurada."
+        }
+    },
+    "entity": {
+        "button": {
+            "reboot": {
+                "name": "Reiniciar"
+            },
+            "terminate_apps": {
+                "name": "Cerrar Aplicaciones"
+            },
+            "picture_off": {
+                "name": "Apagar Pantalla"
+            },
+            "picture_on": {
+                "name": "Encender Pantalla"
+            }
+        },
+        "select": {
+            "sound_output": {
+                "name": "Salida de Audio"
+            },
+            "screen_rotation": {
+                "name": "Rotaci\u00f3n de Pantalla"
+            }
+        },
+        "sensor": {
+            "model": {
+                "name": "Modelo"
+            },
+            "firmware": {
+                "name": "Firmware"
+            },
+            "serial_number": {
+                "name": "N\u00famero de Serie"
+            },
+            "mac_address": {
+                "name": "Direcci\u00f3n MAC"
+            }
+        },
+        "switch": {
+            "led_indicator": {
+                "name": "Indicador LED"
+            },
+            "wake_on_lan": {
+                "name": "Wake-on-LAN"
+            }
+        }
+    }
+}

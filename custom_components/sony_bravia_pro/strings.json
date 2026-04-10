@@ -1,0 +1,72 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "Sony Bravia Pro",
+                "description": "Configure your Sony Bravia Pro display. The TV must be turned on during setup.",
+                "data": {
+                    "host": "IP Address",
+                    "psk": "Pre-Shared Key (PSK)"
+                },
+                "data_description": {
+                    "host": "IP address of your Sony Bravia Pro display",
+                    "psk": "Pre-Shared Key configured in TV Settings > Network & Internet > IP Control"
+                }
+            }
+        },
+        "error": {
+            "cannot_connect": "Cannot connect to the TV. Verify the IP address and ensure the TV is turned on.",
+            "invalid_auth": "Invalid Pre-Shared Key. Check the PSK configured on your TV.",
+            "tv_off": "The TV appears to be in standby. Please turn it on before configuring."
+        },
+        "abort": {
+            "already_configured": "This TV is already configured."
+        }
+    },
+    "entity": {
+        "button": {
+            "reboot": {
+                "name": "Reboot"
+            },
+            "terminate_apps": {
+                "name": "Terminate Apps"
+            },
+            "picture_off": {
+                "name": "Picture Off"
+            },
+            "picture_on": {
+                "name": "Picture On"
+            }
+        },
+        "select": {
+            "sound_output": {
+                "name": "Sound Output"
+            },
+            "screen_rotation": {
+                "name": "Screen Rotation"
+            }
+        },
+        "sensor": {
+            "model": {
+                "name": "Model"
+            },
+            "firmware": {
+                "name": "Firmware"
+            },
+            "serial_number": {
+                "name": "Serial Number"
+            },
+            "mac_address": {
+                "name": "MAC Address"
+            }
+        },
+        "switch": {
+            "led_indicator": {
+                "name": "LED Indicator"
+            },
+            "wake_on_lan": {
+                "name": "Wake-on-LAN"
+            }
+        }
+    }
+}

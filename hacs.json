@@ -1,0 +1,5 @@
+{
+    "name": "Sony Bravia Api",
+    "content_type": "integration",
+    "iot_class": "local_polling"
+}

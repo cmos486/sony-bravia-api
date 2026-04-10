@@ -1,0 +1,91 @@
+send_ircc:
+  name: Send IRCC Command
+  description: Send an IRCC remote control code to a Sony Bravia Pro TV.
+  target:
+    entity:
+      integration: sony_bravia_pro
+      domain: remote
+  fields:
+    command:
+      name: Command
+      description: >-
+        IRCC command name (e.g., "VolumeUp", "Home", "Return") or raw base64
+        IRCC code. Use the remote entity's "available_commands" attribute to see
+        supported command names.
+      required: true
+      example: "VolumeUp"
+      selector:
+        text:
+
+send_text:
+  name: Send Text
+  description: Send text input to the on-screen keyboard.
+  target:
+    entity:
+      integration: sony_bravia_pro
+      domain: remote
+  fields:
+    text:
+      name: Text
+      description: Text to send to the on-screen keyboard.
+      required: true
+      example: "Hello World"
+      selector:
+        text:
+
+set_picture_quality:
+  name: Set Picture Quality
+  description: Adjust picture quality settings on a Sony Bravia Pro TV.
+  target:
+    entity:
+      integration: sony_bravia_pro
+      domain: media_player
+  fields:
+    target:
+      name: Setting
+      description: "Picture quality setting to adjust (e.g., brightness, contrast)."
+      required: true
+      example: "brightness"
+      selector:
+        text:
+    value:
+      name: Value
+      description: "Value to set."
+      required: true
+      example: "50"
+      selector:
+        text:
+
+set_scene:
+  name: Set Scene Mode
+  description: Set the scene/picture mode on a Sony Bravia Pro TV.
+  target:
+    entity:
+      integration: sony_bravia_pro
+      domain: media_player
+  fields:
+    scene:
+      name: Scene
+      description: "Scene mode name (device-specific)."
+      required: true
+      example: "auto"
+      selector:
+        text:
+
+launch_app:
+  name: Launch Application
+  description: Launch an application on a Sony Bravia Pro TV.
+  target:
+    entity:
+      integration: sony_bravia_pro
+      domain: media_player
+  fields:
+    app_uri:
+      name: Application URI
+      description: >-
+        Application URI from the application list. Use the media browser to
+        discover available apps.
+      required: true
+      example: "com.sony.dtv.com.netflix.ninja.com.netflix.ninja.MainActivity"
+      selector:
+        text:

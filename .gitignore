@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets & environment
+.env
+.env.*
+secrets.yaml
+secrets.json
+
+# Home Assistant
+*.db
+*.log
+home-assistant.log
+home-assistant_v2.db
+.storage/
+.cloud/
+tts/
+deps/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+
+# Distribution
+*.tar.gz
+*.whl

@@ -1,0 +1,12 @@
+{
+    "domain": "sony_bravia_pro",
+    "name": "Sony Bravia Pro",
+    "codeowners": [],
+    "config_flow": true,
+    "documentation": "https://pro-bravia.sony.net/remote-display-control/rest-api/reference/",
+    "integration_type": "device",
+    "iot_class": "local_polling",
+    "version": "1.0.0",
+    "requirements": [],
+    "homeassistant": "2024.1.0"
+}
