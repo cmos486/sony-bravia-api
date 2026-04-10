@@ -60,7 +60,7 @@ class BraviaMediaPlayer(BraviaEntity, MediaPlayerEntity):
     """Representation of a Sony Bravia Pro TV as a media player."""
 
     _attr_device_class = MediaPlayerDeviceClass.TV
-    _attr_name = None  # Use device name
+    _attr_has_entity_name = False
 
     def __init__(
         self,
@@ -71,6 +71,9 @@ class BraviaMediaPlayer(BraviaEntity, MediaPlayerEntity):
         self._attr_unique_id = f"{entry.unique_id}_media_player"
         self._sources: dict[str, dict[str, str]] = {}
         self._mac = entry.data.get(CONF_MAC)
+
+        model = coordinator.system_info.get("model")
+        self._attr_name = model or entry.title
 
         features = _BASE_FEATURES
         if _HAS_BROWSE_MEDIA:
