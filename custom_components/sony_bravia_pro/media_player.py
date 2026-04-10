@@ -52,8 +52,22 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up the Sony Bravia Pro media player."""
+    _LOGGER.warning(
+        "Sony Bravia Pro: media_player async_setup_entry called for %s",
+        entry.entry_id,
+    )
     coordinator: BraviaCoordinator = hass.data[DOMAIN][entry.entry_id]
-    async_add_entities([BraviaMediaPlayer(coordinator, entry)])
+    _LOGGER.warning(
+        "Sony Bravia Pro: creating BraviaMediaPlayer entity (coordinator data available: %s)",
+        coordinator.data is not None,
+    )
+    entity = BraviaMediaPlayer(coordinator, entry)
+    _LOGGER.warning(
+        "Sony Bravia Pro: BraviaMediaPlayer created, unique_id=%s, adding to HA",
+        entity.unique_id,
+    )
+    async_add_entities([entity])
+    _LOGGER.warning("Sony Bravia Pro: media_player async_add_entities completed")
 
 
 class BraviaMediaPlayer(BraviaEntity, MediaPlayerEntity):
