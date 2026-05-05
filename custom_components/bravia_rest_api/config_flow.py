@@ -50,7 +50,7 @@ class BraviaRestApiConfigFlow(ConfigFlow, domain=DOMAIN):
     @callback
     def async_get_options_flow(config_entry: ConfigEntry) -> OptionsFlow:
         """Create the options flow."""
-        return BraviaRestApiOptionsFlow(config_entry)
+        return BraviaRestApiOptionsFlow()
 
     def __init__(self) -> None:
         """Initialize the config flow."""
@@ -170,10 +170,6 @@ class BraviaRestApiConfigFlow(ConfigFlow, domain=DOMAIN):
 
 class BraviaRestApiOptionsFlow(OptionsFlow):
     """Handle options for Bravia REST API."""
-
-    def __init__(self, config_entry: ConfigEntry) -> None:
-        """Initialize options flow."""
-        self.config_entry = config_entry
 
     async def async_step_init(
         self, user_input: dict[str, Any] | None = None
